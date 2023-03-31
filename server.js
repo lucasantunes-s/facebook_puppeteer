@@ -22,7 +22,7 @@ app.get("/face", async (req, res) => {
     await page.goto(url);
 
     page.waitForSelector("text/usam esse criativo e esse texto");
-    const text = await page.$eval("text/usam esse criativo e esse texto", element => element.innerHTML);
+    const text = await page.$$eval("text/usam esse criativo e esse texto", element => element.map(element => element.innerHTML));
     console.log(text);
 
     ;
