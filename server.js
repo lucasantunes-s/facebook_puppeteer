@@ -50,7 +50,7 @@ app.get("/teste", async (req, res) => {
   
     const jsonOutput = htmlToJson(htmlContent);
     console.log(jsonOutput);
-    await browser.close();
+    //await browser.close();
 
 
     function htmlToJson(html) {
@@ -58,16 +58,17 @@ app.get("/teste", async (req, res) => {
     const result = {};
     // Coloque aqui a lógica de extração de informações do HTML e popule o objeto result.
     // Exemplo:
-    result.title = $('#facebook').text();
+    page.waitForSelector('.xdoe023');
+    result.title = $('.xdoe023').text();
     result.headings = [];
     
 
-   $('._7jvw x2izyaf x1hq5gj4 x1d52u69').each(function (index, element) {
-      result.headings.push({
-      type: $(element).prop('tagName'),
-      text: $(element).text()
-    });
-  });
+  //  $('._7jvw .x2izyaf .x1hq5gj4 .x1d52u69').each(function (index, element) {
+  //     result.headings.push({
+  //     type: $(element).prop('tagName'),
+  //     text: $(element).text()
+  //   });
+  // });
 
   return result;
 }
