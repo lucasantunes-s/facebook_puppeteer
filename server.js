@@ -10,30 +10,50 @@ let url = `https://www.facebook.com/ads/library/?active_status=all&ad_type=all&c
 
 app.get("/teste", async (req, res) => {
 
-    const browser = await puppeteer.launch({headless: false});
-    const page = await browser.newPage();
-    await page.goto(url);
-    const htmlContent = await page.content();
+//     O código abaixo utiliza o cheerio, busca os dados da pagina e faz um split separando pela palavra AtivoVeiculação. 
+
+//     const browser = await puppeteer.launch({headless: false});
+//     const page = await browser.newPage();
+//     await page.goto(url);
+//     const htmlContent = await page.content();
+//     const jsonOutput = htmlToJson(htmlContent);
+//     console.log(jsonOutput);
+//     await browser.close();
+
+//     function htmlToJson(html) {
+//     const $ = cheerio.load(html);
+//     const result = {};
+//     page.waitForSelector('.xdoe023');
+//     result.title = $('.xdoe023').text();
+//     result.headings = [];   
+//     result.response  = result.title.split("AtivoVeiculação");
+
+//     console.log(result.response);
+// }
+    
+
+teste();
+
+ })
+
+ // A função abaixo faz a busca na pagina usando somente o puppeteer, e no momento ela esta sendo chamada na rota a cima.
+  async function teste() {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto(url);
+  const divElement = await page.$('.xdoe023');
   
-    const jsonOutput = htmlToJson(htmlContent);
-    console.log(jsonOutput);
-    //await browser.close();
 
+  if (divElement) {
+    console.log(divElement);
+    console.log(await page.evaluate(div => div.textContent, divElement));
+  } else {
+    console.log('Div element not found.');
+  }
 
-    function htmlToJson(html) {
-    const $ = cheerio.load(html);
-    const result = {};
-    
-    page.waitForSelector('.xdoe023');
-    result.title = $('.xdoe023').text();
-    result.headings = [];
-    
-    result.response  = result.title.split("AtivoVeiculação");
+  await browser.close();
+};
 
-  console.log(result.response);
-}
-
-})
 
 
 
